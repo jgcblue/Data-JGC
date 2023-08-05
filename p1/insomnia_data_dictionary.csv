@@ -1,0 +1,96 @@
+﻿Columns,Description
+Group,"INSOMNIA= 1, CONTROL=0"
+SubGroup,"clean INSOMNIA= 2, subclinical INSOMNIA = 1, CONTROL = 0"
+Remote,"Remote data collection = 1, In person data collection = 0"
+Sex,"MALE = 1, FEMALE = 0"
+Age,Years
+American_Indian,race
+Asian,race
+Native_Hawaiian,race
+Black,race
+White,race
+unknown_Race,race
+Hispanic,ethnicity
+NotHispanic,ethnicity
+unknown_Etnicity,ethnicity
+PDS_FEMALE,Pubertal Development Scale  for FEMALES
+PDS_MALE,Pubertal Development Scale for MALES
+ISI_total,ISI total (Insomnia severity index )
+PSQI_total,PSQI total (Pittsburgh sleep quality index )
+BDI_total,BDI-II Total Score (Becks Depression inventory)
+ASHS_total,ASHS Total (Adolescent Sleep Hygiene Scale)
+ASHS_physiological,ASHS - Physiological Domain (Adolescent Sleep Hygiene Scale)
+ASHS_cognitive,ASHS - Cognitive Domain (Adolescent Sleep Hygiene Scale)
+ASHS_emotional,ASHS - Emotional Domain (Adolescent Sleep Hygiene Scale)
+ASHS_SleepEnvirnmont,ASHS - Sleep Environment (Adolescent Sleep Hygiene Scale)
+ASHS_DaytimeSleep,ASHS - Daytime Sleep (Adolescent Sleep Hygiene Scale)
+ASHS_substances,ASHS - Substances (Adolescent Sleep Hygiene Scale)
+ASHS_bedtimeRoutine,ASHS - Bedtime Routine (Adolescent Sleep Hygiene Scale)
+ASHS_sleepStability,ASHS - Sleep Stability (Adolescent Sleep Hygiene Scale)
+ASHS_BedroomSharing,ASHS - Bed / Bedroom sharing (Adolescent Sleep Hygiene Scale)
+DBAS_total,DBAS Total Score (Dysfunctional Beliefs and Attitudes about Sleep)
+FIRST_total,FIRST Total Score (Ford insomnia Response to Stress Test)
+GCTI_total,GCTI Total Score (The Glasgow Content of Thoughts Inventory)
+GCTI_anxiety,GCTI Sleep Related Anxiety (The Glasgow Content of Thoughts Inventory)
+GCTI_reflection,GCTI Reflection and Planning (The Glasgow Content of Thoughts Inventory)
+GCTI_worries,GCTI General Worries (The Glasgow Content of Thoughts Inventory)
+GCTI_thoughts,GCTI Thoughts About the Environment (The Glasgow Content of Thoughts Inventory)
+GCTI_negativeAffect,GCTI Negative Affect (The Glasgow Content of Thoughts Inventory)
+STAI_Y_total,STAI Y-2 Total Score (State-Trait Anxiety Inventory )
+NEO_neuroticism,Neuroticism
+NEO_extraversion,Extroversion
+NEO_openness,Openness
+NEO_agreeableness,Agreeableness
+NEO_Conscientiousness,Conscientiousness
+MEQr_total,MEQr Total (The Morningness-Eveningness Questionnaire )
+PSRS_PrR,PSRS Prolonged Reactivity (PrR) (Perceived Stress Reactivity Scale)
+PSRS_RWO,PSRS Reactivity to Work Overload (RWO) (Perceived Stress Reactivity Scale)
+PSRS_RSC,PSRS Reactivity to Social Conflict (RSC) (Perceived Stress Reactivity Scale)
+PSRS_FRa,PSRS Reactivity to Failure (RFa) (Perceived Stress Reactivity Scale)
+PSRS_RSE,PSRS Reactivity to Social Evaluation (RSE) (Perceived Stress Reactivity Scale)
+PSRS_total,Perceived Stress Reactivity Total Score (PSRS-tot)
+PSS_total,PSS Total Score (Perceived stress scale)
+TCQI_R_Total,TCQI-R Total Score (Thought Control Questionnaire Insomnia)
+TCQIR_Aggressive_supression,Aggressive Suppression TCQI-R (Thought Control Questionnaire Insomnia)
+TCQIR_cognitive_distraction,Cognitive Distraction / Suppression TCQI-R (Thought Control Questionnaire Insomnia)
+TCQIR_reappraisal,Reappraisal TCQI-R (Thought Control Questionnaire Insomnia)
+TCQIR_behavtioral_distraction,Behavioral Distraction / Suppression TCQI-R (Thought Control Questionnaire Insomnia)
+TCQIR_social_avoidance,Social Avoidance TCQI-R (Thought Control Questionnaire Insomnia)
+TCQIR_worry,Worry TCQI-R (Thought Control Questionnaire Insomnia)
+ACE_tot,ACE Total (The Adverse Childhood Experiences )
+asq_home,Stress of Home Life ASQ (Adolescent Stress Questionnaire)
+asq_school,Stress of School Performance ASQ (Adolescent Stress Questionnaire)
+asq_attendance,Stress of School Attendance ASQ (Adolescent Stress Questionnaire)
+asq_romantic,Stress of Romantic Relationships ASQ (Adolescent Stress Questionnaire)
+asq_peer,Stress of Peer Pressure ASQ (Adolescent Stress Questionnaire)
+asq_teacher,Stress of Teacher Interaction ASQ (Adolescent Stress Questionnaire)
+asq_future,Stress of Future Uncertainty ASQ (Adolescent Stress Questionnaire)
+asq_leisure,Stress of School / Leisure Conflict ASQ (Adolescent Stress Questionnaire)
+asq_finance,Stress of Financial Pressure ASQ (Adolescent Stress Questionnaire)
+asq_responsibility,Stress of Emerging Adult Responsibility ASQ (Adolescent Stress Questionnaire)
+casq_total,Total CASQ Score (Cleveland Adolescent Sleepiness Questionnaire)
+casq_sleepy,Sleepiness Statements CASQ (Cleveland Adolescent Sleepiness Questionnaire)
+casq_alert,Alertness Statements CASQ (Cleveland Adolescent Sleepiness Questionnaire)
+cope_growth,Positive Reinterpretation & Growth COPE (Coping skills)
+cope_disengage_mental,Mental Disengagement COPE  (Coping skills)
+cope_emotions,Focus on & Venting of Emotions COPE  (Coping skills)
+cope_socialsupp_instr,Seeking Social Support - Instrumental COPE  (Coping skills)
+cope_active,Active Coping COPE  (Coping skills)
+cope_denial,Denial COPE  (Coping skills)
+cope_religion,Turning to Religion COPE  (Coping skills)
+cope_humor,Humor COPE  (Coping skills)
+cope_disengage_emo,Behavioral Disengagement COPE (Coping skills)
+cope_restraint,Restraint Coping COPE  (Coping skills)
+cope_socialsupp_emo,Seeking Social Support - Emotional COPE (Coping skills)
+cope_disengage_su,Substance Use
+cope_substance_use,Substance Use COPE (Coping skills)
+cope_acccept,Acceptance COPE (Coping skills)
+cope_suppression,Suppression of Competing Activities COPE (Coping skills)
+cope_planning,Planning COPE (Coping skills)
+ders_nonaccpetance,DERS Nonacceptance of Emotional Responses (NONACCEPTANCE) (Difficulties in Emotion Regulation Scale)
+ders_total,DERS total score (Difficulties in Emotion Regulation Scale)
+ders_goals,DERS Difficulties Engaging in Goal-Directed Behavior (GOALS) (Difficulties in Emotion Regulation Scale)
+ders_impulse,DERS Impulse control difficulties (IMPULSE) (Difficulties in Emotion Regulation Scale)
+ders_awareness,DERS Lack of Emotional Awareness (AWARENESS) (Difficulties in Emotion Regulation Scale)
+ders_strategies,DERS Limited Access to Emotion Regulation Strategies (STRATEGIES) (Difficulties in Emotion Regulation Scale)
+ders_clarity,DERS Lack of Emotional Clarity (CLARITY) (Difficulties in Emotion Regulation Scale)
