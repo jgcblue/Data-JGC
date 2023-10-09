@@ -1,0 +1,109 @@
+2023-09-25 17:29:43,833 ERROR: Exception on /admin/add_staff [POST] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3351, in add
+    state = attributes.instance_state(instance)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StaffForm' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 36, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 244, in add_staff
+    db.session.add(staff)
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 377, in add
+    return self._proxied.add(instance, _warn=_warn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3353, in add
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'app.blueprints.admin.routes.StaffForm' is not mapped
+2023-09-25 17:31:09,868 ERROR: Exception on /admin/add_staff [POST] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3351, in add
+    state = attributes.instance_state(instance)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StaffForm' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 36, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 244, in add_staff
+    db.session.add(staff)
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 377, in add
+    return self._proxied.add(instance, _warn=_warn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3353, in add
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'app.blueprints.admin.routes.StaffForm' is not mapped
+2023-09-25 17:35:24,335 ERROR: Exception on /admin/add_staff [POST] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3351, in add
+    state = attributes.instance_state(instance)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StaffForm' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 36, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 244, in add_staff
+    db.session.add(staff)
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 377, in add
+    return self._proxied.add(instance, _warn=_warn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3353, in add
+    raise exc.UnmappedInstanceError(instance) from err
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'app.blueprints.admin.routes.StaffForm' is not mapped
+2023-09-25 17:35:30,118 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]

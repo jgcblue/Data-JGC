@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Add Tutoring Relationship</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.student.label }}<br>
+            {{ form.student() }}
+        </p>
+        <p>
+            {{ form.tutor.label }}<br>
+            {{ form.tutor() }}
+        </p>
+        <p>
+            {{ form.subject.label }}<br>
+            {{ form.subject() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,17 @@
+# adding from models
+from app import db
+from app.models import User, Session
+'''
+How to use: 
+
+Simple: All you need to do is copy and paste. Then you have access to the models and functions to
+create instances and commit them. 
+
+'''
+
+# samples 
+
+
+
+
+

@@ -1,0 +1,20 @@
+<!-- app/templates/crud/add.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add New Entry</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title() }}
+    </p>
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content() }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+

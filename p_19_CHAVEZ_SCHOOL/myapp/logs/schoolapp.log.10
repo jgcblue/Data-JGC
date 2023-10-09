@@ -1,0 +1,83 @@
+2023-09-25 11:24:48,915 ERROR: Exception on /admin/login [POST] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 70, in login
+    admin = User.query.filter_by(role='admin', username=form.username.data).first()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2743, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2262, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2132, in _execute_internal
+    bind = self.get_bind(**bind_arguments)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_sqlalchemy/session.py", line 53, in get_bind
+    engines = self._db.engines
+              ^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 642, in engines
+    raise RuntimeError(
+RuntimeError: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2023-09-25 11:25:01,683 ERROR: Exception on /admin/login [POST] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 70, in login
+    admin = User.query.filter_by(role='admin', username=form.username.data).first()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2743, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2262, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2132, in _execute_internal
+    bind = self.get_bind(**bind_arguments)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_sqlalchemy/session.py", line 53, in get_bind
+    engines = self._db.engines
+              ^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 642, in engines
+    raise RuntimeError(
+RuntimeError: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2023-09-25 11:29:02,588 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 11:29:02,986 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 16:35:15,406 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 16:35:31,619 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 16:35:32,011 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:17:37,210 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:17:42,994 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:18:53,972 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:19:06,130 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:26:26,540 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:26:37,630 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:26:59,442 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-25 17:27:04,003 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]

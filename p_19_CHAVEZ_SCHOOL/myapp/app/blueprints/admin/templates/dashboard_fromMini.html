@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container d-flex flex-column" style="height:100vh;"> <!-- Set container to be a flex container with column direction and take full viewport height -->
+    <div class="row flex-grow-1"> <!-- Allow this row to grow and take up any remaining space in the container -->
+        <!-- Left Column -->
+        <div class="col-md-3 d-flex flex-column" style="background-color: #e6f7ff;"> <!-- Set column to be a flex container with column direction -->
+            <p>Welcome to the "testing version" of the Flask Endpoint. In fact, I am sadly only hollowed out, really.</p>
+            <div class="container d-flex flex-column flex-grow-1"> <!-- Set inner container to be a flex container with column direction and allow it to grow -->
+                <div class="row">
+                    <div class="col-12">
+                        <a href="LINK_TO_YOUR_NODEJS_QUIZ_ENDPOINT" class="btn btn-secondary btn-block">Quizzes</a>
+                    </div>
+                </div>
+                <div class="row flex-grow-1 overflow-auto"> <!-- Allow this row to grow and set overflow to auto -->
+                    <div class="col-12" id="localStorageContents">
+                        <!-- Contents Here -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" id="jwtContents">
+                        <!-- JWT Contents Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="col-md-9 d-flex flex-column" style="background-color: #e6ffe6;"> <!-- Set column to be a flex container with column direction -->
+            <div class="container d-flex flex-column flex-grow-1"> <!-- Set inner container to be a flex container with column direction and allow it to grow -->
+                <div class="row">
+                    <div class="col-12">
+                        <button onclick="openWhiteboard()" class="btn btn-primary btn-block">Whiteboard</button>
+                    </div>
+                </div>
+                <div class="row flex-grow-1"> <!-- Allow this row to grow -->
+                    <div class="col-12" id="iframeContainer" style="overflow: hidden;">
+                        <!-- Iframe Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function displayLocalStorageContents() {
+        const container = document.getElementById('localStorageContents');
+        container.innerHTML = ''; // Clear the container
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            container.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+        }
+    }
+    
+    // Call the function to display the contents
+    displayLocalStorageContents();
+    
+    // Update the display whenever something is added to local storage
+    window.addEventListener('storage', function(event) {
+        displayLocalStorageContents();
+    });
+</script>
+<!-- Include the jsonwebtoken library -->
+<script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/lib/index.js"></script>
+
+<script>
+    const secretKey = '{{ secret_key }}';  // Use the secret key from your app's config
+    const token = '{{ token }}';  // Get the token passed to the template
+    
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        const container = document.getElementById('jwtContents');
+        container.innerHTML = `<p><strong>Username:</strong> ${decoded.username}</p>`;
+        container.innerHTML += `<p><strong>Data:</strong> ${decoded.data}</p>`;
+    } catch (e) {
+        console.error('Failed to decode token:', e);
+    }
+</script>
+<script>
+    function openWhiteboard() {
+        const container = document.getElementById('iframeContainer');
+        container.style.height = '400px'; // Adjust the height as needed
+        const iframe = document.createElement('iframe');
+        iframe.src = 'http://localhost:3000/whiteboard'; // Adjust the URL as needed
+
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        container.appendChild(iframe);
+    }
+</script>
+
+{% endblock %}
+

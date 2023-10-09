@@ -1,0 +1,103 @@
+2023-09-25 23:02:57,251 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 38, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 112, in dashboard
+    token = jwt.encode(payload, secret_key, algorithm='HS256')
+                       ^^^^^^^
+NameError: name 'payload' is not defined
+2023-09-26 01:28:47,335 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-26 01:29:23,661 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 38, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 113, in dashboard
+    return render_template('dashboard.html', token=token, secret_key=secret_key)
+                                                   ^^^^^
+NameError: name 'token' is not defined
+2023-09-30 20:36:40,884 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-30 20:37:14,483 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-09-30 20:38:21,639 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-01 23:08:22,697 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-01 23:08:29,075 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-01 23:09:03,581 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 38, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 113, in dashboard
+    return render_template('dashboard.html', token=token, secret_key=secret_key)
+                                                   ^^^^^
+NameError: name 'token' is not defined
+2023-10-02 19:10:56,348 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-02 19:11:31,469 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 38, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 113, in dashboard
+    return render_template('dashboard.html', token=token, secret_key=secret_key)
+                                                   ^^^^^
+NameError: name 'token' is not defined

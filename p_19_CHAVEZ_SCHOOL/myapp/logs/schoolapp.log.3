@@ -1,0 +1,90 @@
+2023-10-02 19:19:00,851 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 38, in decorated_function
+    def decorated_function(*args, **kwargs):
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 113, in dashboard
+    @admin_bp.route('/dashboard', methods=['GET'])
+                                                   
+NameError: name 'token' is not defined
+2023-10-02 19:19:04,238 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-02 19:19:07,301 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+TypeError: dashboard() missing 2 required positional arguments: 'token' and 'secretKey'
+2023-10-02 19:22:06,894 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]
+2023-10-02 19:22:09,080 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+TypeError: dashboard() missing 2 required positional arguments: 'token' and 'secretKey'
+2023-10-02 19:22:10,880 ERROR: Exception on /admin/dashboard [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+TypeError: dashboard() missing 2 required positional arguments: 'token' and 'secretKey'
+2023-10-02 19:23:00,564 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]

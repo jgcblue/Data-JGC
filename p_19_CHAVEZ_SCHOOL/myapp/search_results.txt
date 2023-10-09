@@ -1,0 +1,7 @@
+./app/blueprints/admin/routes.py:from app.models.user import Admin, Student
+./app/blueprints/crud/routes.py:from app.models.user import Admin, Student
+./app/blueprints/staff/routes.py:from app.models.user import Admin, Student
+./app/blueprints/admin/routes.py:        admin = Admin.query.filter_by(username=form.username.data).first()
+./app/blueprints/crud/routes.py:    students = Student.query.all()
+./app/blueprints/crud/routes.py:    student = Student.query.get_or_404(id)
+./app/blueprints/crud/routes.py:    student = Student.query.get_or_404(id)

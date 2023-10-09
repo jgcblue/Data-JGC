@@ -1,0 +1,91 @@
+2023-09-25 17:27:11,076 ERROR: Exception on /admin/add_staff [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 36, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 248, in add_staff
+    return render_template('add_staff.html', form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/templates/add_staff.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/templates/base.html", line 12, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/templates/add_staff.html", line 20, in block 'content'
+    <label for="{{ form.password_hash.id }}">Password</label>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'app.blueprints.admin.routes.StaffForm object' has no attribute 'password_hash'
+2023-09-25 17:27:51,215 ERROR: Exception on /admin/add_staff [GET] [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 36, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/routes.py", line 248, in add_staff
+    return render_template('add_staff.html', form=form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/templating.py", line 151, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/flask/templating.py", line 132, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/templates/add_staff.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/templates/base.html", line 12, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/blueprints/admin/templates/add_staff.html", line 20, in block 'content'
+    <label for="{{ form.password_hash.id }}">Password</label>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/venv/lib/python3.11/site-packages/jinja2/environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'app.blueprints.admin.routes.StaffForm object' has no attribute 'password_hash'
+2023-09-25 17:28:00,770 INFO: School app startup [in /Users/josechavez/WEB/jc_micro_projects/dataSnA/data_jgc_github/p_19_CHAVEZ_SCHOOL/myapp/app/__init__.py:85]

@@ -1,0 +1,1496 @@
+==== ./aAnyRoleandFake.py ====
+import argparse
+from app import create_app, db
+from app.models.user import User
+from faker import Faker
+
+fake = Faker()
+
+def add_user(username, email, password, role):
+    """
+    Function to add a user to the database with a specified role.
+    
+    Parameters:
+    - username (str): The desired username for the user.
+    - email (str): The email address for the user.
+    - password (str): The password for the user.
+    - role (str): The role for the user.
+    
+    Returns:
+    - str: A message indicating success or the nature of any error.
+    """
+    existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
+    if existing_user:
+        return "Username or Email already exists."
+    
+    new_user = User(username=username, email=email, role=role)
+    new_user.set_password(password)
+    db.session.add(new_user)
+    db.session.commit()
+    return f"{role.capitalize()} added successfully!"
+
+def add_fake_students(num_students):
+    for _ in range(num_students):
+        username = fake.user_name()
+        email = fake.email()
+        password = fake.password()
+        role = "student"
+        result = add_user(username, email, password, role)
+        print(result)
+
+def main():
+    parser = argparse.ArgumentParser(description="Add a user with a specified role or fake students to the database.")
+    parser.add_argument("username", type=str, help="The desired username for the user.", nargs='?', default=None)
+    parser.add_argument("email", type=str, help="The email address for the user.", nargs='?', default=None)
+    parser.add_argument("password", type=str, help="The password for the user.", nargs='?', default=None)
+    parser.add_argument("role", type=str, help="The role for the user.", nargs='?', default=None)
+    parser.add_argument("--fake-students", type=int, help="Number of fake students to add.", default=0)
+
+    args = parser.parse_args()
+
+    # Create a minimal Flask app instance
+    app = create_app()
+
+    # Establish an app context to perform database operations
+    with app.app_context():
+        if args.fake_students:
+            add_fake_students(args.fake_students)
+        else:
+            result = add_user(args.username, args.email, args.password, args.role)
+            print(result)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+==== ./add_admins.py ====
+import argparse
+from app import create_app, db
+from app.models.user import User
+
+def add_admin(username, email, password):
+    """
+    Function to add an admin to the database.
+    
+    Parameters:
+    - username (str): The desired username for the admin.
+    - email (str): The email address for the admin.
+    - password (str): The password for the admin.
+    
+    Returns:
+    - str: A message indicating success or the nature of any error.
+    """
+    existing_user = User.query.filter((User.username == username) | (User.email == email)).first()
+    if existing_user:
+        return "Username or Email already exists."
+    
+    new_admin = User(username=username, email=email, role='admin')
+    new_admin.set_password(password)
+    db.session.add(new_admin)
+    db.session.commit()
+    return "Admin added successfully!"
+
+def main():
+    parser = argparse.ArgumentParser(description="Add an admin to the database.")
+    parser.add_argument("username", type=str, help="The desired username for the admin.")
+    parser.add_argument("email", type=str, help="The email address for the admin.")
+    parser.add_argument("password", type=str, help="The password for the admin.")
+
+    args = parser.parse_args()
+
+    # Create a minimal Flask app instance
+    app = create_app()
+
+    # Establish an app context to perform database operations
+    with app.app_context():
+        result = add_admin(args.username, args.email, args.password)
+        print(result)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+==== ./list_tables.py ====
+from app import db  # Replace 'your_flask_app' with your actual Flask application name
+from sqlalchemy import MetaData
+
+metadata = MetaData(bind=db.engine)
+metadata.reflect()
+
+# List all tables in the database
+tables = metadata.tables.keys()
+for table in tables:
+    print(table)
+
+
+
+
+==== ./run.py ====
+from app import create_app, db
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+
+app = create_app()
+
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db}
+# Add more sobjects later. This being here is like a seed for doing others. 
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+==== ./app/question_routes.py ====
+from flask import request, jsonify
+from app.models.question_models import *
+
+# Initialize a session
+session = Session()
+
+def add_question_routes(app):
+
+    @app.route('/add_question', methods=['POST'])
+    def add_question():
+        try:
+            # Get form data
+            question_text = request.form.get('question')
+            topic = request.form.get('topic')
+            answers = request.form.getlist('answers')
+            correct_index = int(request.form.get('correct_index'))
+
+            # Create a new question
+            new_question = Question(text=question_text, topic=topic)
+            
+            # Add answers
+            for i, answer_text in enumerate(answers):
+                is_correct = (i == correct_index)
+                new_answer = Answer(text=answer_text, is_correct=is_correct, topic=topic, question=new_question)
+                session.add(new_answer)
+
+            # Add question to session and commit
+            session.add(new_question)
+            session.commit()
+
+            return jsonify({"status": "success", "message": "Question and answers added successfully"}), 200
+
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 400
+
+
+
+
+==== ./app/blueprints/student/__init__.py ====
+# app/staff/__init__.py
+
+from flask import Blueprint
+
+student = Blueprint('student', __name__)
+
+from . import routes
+
+
+
+
+==== ./app/blueprints/student/templates/student.html ====
+
+
+
+==== ./app/blueprints/student/routes.py ====
+
+
+
+==== ./app/blueprints/admin/staff_routes.py ====
+class StaffForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    # ... other fields
+    submit = SubmitField('Add Student')
+
+@admin_bp.route('/add_staff', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_student():
+    form = StaffForm()
+    if form.validate_on_submit():
+        staff = StaffForm(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Staff added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_staff.html', form=form)
+
+
+
+
+
+
+==== ./app/blueprints/admin/student_routes.py ====
+class StaffForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    # ... other fields
+    submit = SubmitField('Add Student')
+
+@admin_bp.route('/add_staff', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_student():
+    form = StaffForm()
+    if form.validate_on_submit():
+        staff = StaffForm(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Staff added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_staff.html', form=form)
+
+
+
+
+
+
+==== ./app/blueprints/admin/__init__.py ====
+from flask import Blueprint
+
+admin_bp = Blueprint('admin', __name__, template_folder='templates')
+
+from . import routes
+
+
+
+
+==== ./app/blueprints/admin/templates/add_tutoring.html ====
+{% extends "base.html" %}
+{% block content %}
+    <h2>Add Tutoring Relationship</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.student.label }}<br>
+            {{ form.student() }}
+        </p>
+        <p>
+            {{ form.tutor.label }}<br>
+            {{ form.tutor() }}
+        </p>
+        <p>
+            {{ form.subject.label }}<br>
+            {{ form.subject() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/admin/templates/view_students.html ====
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+    <h1>All Students</h1>
+    <ul>
+    {% for student in students %}
+        <li>{{ student.name }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
+
+==== ./app/blueprints/admin/templates/add_student.html ====
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Add a student</h2>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="{{ form.username.id }}">Username</label>
+            {{ form.username(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id }}">Email</label>
+            {{ form.email(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password_hash.id }}">Password</label>
+            {{ form.password_hash(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/admin/templates/login.html ====
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Admin Login
+                </div>
+                <div class="card-body">
+			<form method="post" action="{{ url_for('admin.login') }}">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <label for="{{ form.username.id }}">Username</label>
+                            {{ form.username(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password.id }}">Password</label>
+                            {{ form.password(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/admin/templates/dashboard.html ====
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+	<h2>Welcome to the Admin Dashboard</h2>
+
+    Click on a link to be taken to the page and form (if applicale) that will allow you to perform
+    the indicated action. </h2>
+    {% if current_user.is_authenticated %}
+    <!-- Display content for authenticated users -->
+{% else %}
+    <!-- Display content for non-authenticated users -->
+{% endif %}
+
+	<h2> Student Database Interactions</h2>
+        <div class="navbar" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Administrator Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.view_student') }}">View A Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.view_all_students') }}">View All Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.add_student') }}">Add Student </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.update_student') }}">Manage Students</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h2>Staff Database Interactions</h2>
+        <div class="navbar" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.add_staff') }}"> Add a Staff Member</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.view_staff') }}">View a Specific Staff Member</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.view_all_staff') }}">View All Staff</a>
+                </li>
+		
+            </ul>
+        </div>
+</div>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/admin/templates/view_all_students.html ====
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+    <h1>All Students</h1>
+    <ul>
+    {% for student in students %}
+        <li>{{ student.username }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
+
+==== ./app/blueprints/admin/templates/view_all_staff.html ====
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff</title>
+</head>
+<body>
+    <h1>All Staff</h1>
+    <ul>
+    {% for student in staff %}
+        <li>{{ staff.name }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
+
+==== ./app/blueprints/admin/templates/admin_dashboard.html ====
+
+
+
+==== ./app/blueprints/admin/routes.py ====
+from app.models.user import User 
+from app.models.tutoring import Tutoring
+from app.models.subject import Subject
+
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired
+from flask import render_template, flash, redirect, url_for
+from flask_login import logout_user, login_required, current_user
+from functools import wraps
+from flask_login import login_user
+from app import login_manager
+from . import admin_bp
+from ... import db  
+from werkzeug.security import generate_password_hash
+
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+from wtforms_sqlalchemy.fields import QuerySelectField
+
+
+''' 
+DECORATORS: 
+
+
+'''
+# The admin_required decorator
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.role != 'admin':
+            flash('You do not have permission to access this page.', 'danger')
+            return redirect(url_for('admin.login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+
+'''
+
+FLASK LOGIN
+
+
+'''
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+'''
+LOGGING IN USING OUR JINJA TEMPLATES , FLASK FORMS AND 
+ADMIN BLUEPRINT ROUTES
+
+'''
+
+class AdminLoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
+# the login route
+@admin_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    print("Hi there")
+    print(db)
+    form = AdminLoginForm()
+    if form.validate_on_submit():
+        admin = User.query.filter_by(role='admin', username=form.username.data).first()
+        if admin and admin.check_password(form.password.data):
+            login_user(admin)
+            #return redirect(url_for('admin.dashboard'))
+            #commenting out that url_for as it's not working yet
+            return render_template('dashboard.html', form =form)
+        else:
+            print("The app couldn't find your credentials")
+            flash('Invalid username or password', 'danger')
+    return render_template('login.html', form=form)
+
+@admin_bp.route('/logout')
+@login_required
+@admin_required
+def logout():
+    logout_user()
+    return redirect(url_for('admin.login'))
+
+
+'''
+
+DASHBOARD
+
+'''
+@admin_bp.route('/dashboard', methods=['GET'])
+@login_required
+@admin_required
+def dashboard():
+    return render_template('dashboard.html')
+
+
+# 
+# STUDENT ROUTES#
+#
+
+class StudentForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    password_hash = StringField('Password', validators = [DataRequired()])
+    submit = SubmitField('Add Student')
+
+@admin_bp.route('/add_student', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password_hash.data, method='sha256')
+        student = User(username=form.username.data,\
+                      email=form.email.data,\
+                      password_hash=hashed_password,\
+                      role='student')
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_student.html', form=form)
+
+# Create Student/Tutor Relationship
+
+
+# Model for the Tutoring Relationship, keeping here for the time being: 
+#class Subject(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
+#    name = db.Column(db.String(64), unique=True, nullable=False)
+#
+
+class TutoringForm(FlaskForm):
+    student = QuerySelectField('Student', query_factory=lambda: User.query.filter_by(role='student'), get_label='username')
+    tutor = QuerySelectField('Tutor', query_factory=lambda: User.query.filter_by(role='tutor'), get_label='username')
+    subject = QuerySelectField('Subject', query_factory=lambda: Subject.query.all(), get_label='name')
+    submit = SubmitField('Add Relationship')
+
+
+@admin_bp.route('/add_tutoring', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_tutoring():
+    form = TutoringForm()
+    if form.validate_on_submit():
+        tutoring = Tutoring(student_id=form.student.data.id, tutor_id=form.tutor.data.id, subject_id=form.subject.data.id)
+        db.session.add(tutoring)
+        db.session.commit()
+        flash('Tutoring relationship added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_tutoring.html', form=form)
+
+
+
+
+# This in its current form does not make sense as the user has not submitted
+# any data yet ... so nothing renders and there's some sort of message too. 
+#def add_student():
+#if form.validate_on_submit():
+#    existing_user = Student.query.filter_by(username=form.username.data).first()
+#    if existing_user:
+#        flash('A student with that username already exists. Please choose a different username.')
+#        return redirect(url_for('admin.add_student'))
+#    
+#    hashed_password = generate_password_hash(form.password.data)
+#    student = User(
+#        username=form.username.data,
+#        email=form.email.data,
+#        password_hash=hashed_password,
+#        role='student'
+#    )
+#    db.session.add(student)
+#    db.session.commit()
+#    flash('Student added successfully!')
+#    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/view_all_students', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def view_all_students():
+    students = User.query.filter_by(role='student').all()
+    return render_template('view_all_students.html', students=students)
+
+@admin_bp.route('/view_student', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def view_student():
+    ''' 
+    Needs to be changed so that it just views the students. Maybe should return
+    a table if the admin is logged in and just let them select based on some
+    other logic. 
+    '''
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data, password= form.password.data, role=form.role.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_student.html', form=form)
+
+@admin_bp.route('/update_student', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def update_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_student.html', form=form)
+
+
+'''
+WORKING WITH STAFF
+'''
+
+class StaffForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    # ... other fields
+    submit = SubmitField('Add Staff')
+
+@admin_bp.route('/add_staff', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_staff():
+    form = StaffForm()
+    if form.validate_on_submit():
+        staff = StaffForm(username=form.username.data, email=form.email.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Staff added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_staff.html', form=form)
+
+#
+
+class StaffForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    # ... other fields
+    submit = SubmitField('Add Staff')
+
+@admin_bp.route('/view_staff', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def view_staff():
+    form = StaffForm()
+    if form.validate_on_submit():
+        staff = StaffForm(username=form.username.data, email=form.email.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Staff added successfully!')
+        return redirect(url_for('admin.dashboard'))
+    return render_template('add_staff.html', form=form)
+
+
+@admin_bp.route('/view_all_stafff', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def view_all_staff():
+    staff = User.query.filter_by(role='staff').all()
+    return render_template('view_all_staff.html', staff=staff)
+==== ./app/blueprints/__init__.py ====
+
+
+==== ./app/blueprints/crud/__init__.py ====
+# app/crud/__init__.py
+
+from flask import Blueprint
+
+crud = Blueprint('crud', __name__, template_folder='templates')
+
+
+==== ./app/blueprints/crud/forms.py ====
+# app/crud/forms.py
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+class EntryForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+==== ./app/blueprints/crud/templates/crud.html ====
+<!-- app/templates/crud/add.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add New Entry</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title() }}
+    </p>
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content() }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/crud/routes.py ====
+#CRUD routes.py
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import login_required, current_user
+from functools import wraps
+
+from app.blueprints.crud import crud_bp
+
+from app.models.user import User
+from app import db
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+# Decorator to ensure the user is an admin
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.is_admin:
+            flash('You do not have permission to access this page.', 'danger')
+            return redirect(url_for('main.index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Sample form for adding a student
+class StudentForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    submit = SubmitField('Add Student')
+
+@crud_bp.route('/students', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def list_students():
+    students = User.query.filter_by(role='student').all()
+    return render_template('students.html', students=students)
+
+@crud_bp.route('/student/add', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('crud.list_students'))
+    return render_template('add_student.html', form=form)
+
+@crud_bp.route('/student/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_student(id):
+    student = User.query.filter_by(role='student').get_or_404(id)
+    form = StudentForm(obj=student)
+    if form.validate_on_submit():
+        student.username = form.username.data
+        student.email = form.email.data
+        db.session.commit()
+        flash('Student updated successfully!')
+        return redirect(url_for('crud.list_students'))
+    return render_template('edit_student.html', form=form, student=student)
+
+@crud_bp.route('/student/<int:id>/delete', methods=['POST'])
+@login_required
+@admin_required
+def delete_student(id):
+    student = User.query.filter_by(role='student').get_or_404(id)
+    db.session.delete(student)
+    db.session.commit()
+    flash('Student deleted successfully!')
+    return redirect(url_for('crud.list_students'))
+
+
+
+
+==== ./app/blueprints/staff/__init__.py ====
+# app/staff/__init__.py
+
+from flask import Blueprint
+
+staff = Blueprint('staff', __name__)
+
+from . import routes
+
+
+
+
+==== ./app/blueprints/staff/templates/staff.html ====
+
+
+
+==== ./app/blueprints/staff/routes.py ====
+#routes for staff
+
+from app.models.user import User
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired
+from flask import render_template, flash, redirect, url_for
+from flask_login import logout_user
+
+from . import staff
+from ... import db  
+
+
+## DECORATORS START
+
+
+from flask_login import login_required
+from functools import wraps
+from flask import flash, redirect, url_for
+from flask_login import current_user
+
+
+def staff_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.role != 'staff':
+            flash('You do not have permission to access this page.', 'danger')
+            return redirect(url_for('main.index'))
+        return f(*args, **kwargs)
+    return decorated_function
+## DECORATORS END
+
+
+
+
+class staffLoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
+
+
+@staff.route('/dashboard')
+@login_required
+@staff_required
+def staff_dashboard():
+    return "Welcome to the staff dashboard!"
+
+
+
+class StudentForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    # ... other fields
+    submit = SubmitField('Add Student')
+
+@staff.route('/add_student', methods=['GET', 'POST'])
+@login_required
+@staff_required
+def add_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('staff.dashboard'))
+    return render_template('add_student.html', form=form)
+
+@staff.route('/view_student', methods=['GET', 'POST'])
+@login_required
+@staff_required
+def view_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('staff.dashboard'))
+    return render_template('add_student.html', form=form)
+
+@staff.route('/update_student', methods=['GET', 'POST'])
+@login_required
+@staff_required
+def update_student():
+    form = StudentForm()
+    if form.validate_on_submit():
+        student = Student(username=form.username.data, email=form.email.data)
+        # ... set other fields
+        db.session.add(student)
+        db.session.commit()
+        flash('Student added successfully!')
+        return redirect(url_for('staff.dashboard'))
+    return render_template('add_student.html', form=form)
+
+
+
+
+
+==== ./app/blueprints/ml_and_da/__init__.py ====
+# app/staff/__init__.py
+
+from flask import Blueprint
+
+mlda_bp = Blueprint('ml_and_da', __name__)
+
+from . import routes
+
+
+
+
+
+==== ./app/blueprints/ml_and_da/forms.py ====
+# app/crud/forms.py
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+class EntryForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+
+
+==== ./app/blueprints/ml_and_da/templates/crud.html ====
+<!-- app/templates/crud/add.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add New Entry</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title() }}
+    </p>
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content() }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
+
+
+
+==== ./app/blueprints/ml_and_da/routes.py ====
+from flask import render_template, flash, redirect, url_for
+from flask_login import login_required, current_user
+from functools import wraps
+
+from . import mlda_bp
+
+# Decorator to ensure the user is an admin
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.is_admin:
+            flash('You do not have permission to access this page.', 'danger')
+            return redirect(url_for('main.index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@mlda_bp.route('/')
+@login_required
+@admin_required
+def index():
+    return "Welcome to the Machine Learning and Data Analysis section!"
+
+@mlda_bp.route('/data_visualization')
+@login_required
+@admin_required
+def data_visualization():
+    # Placeholder
+    pass
+
+@mlda_bp.route('/predictive_modeling')
+@login_required
+@admin_required
+def predictive_modeling():
+    # Placeholder
+    pass
+
+@mlda_bp.route('/data_cleaning')
+@login_required
+@admin_required
+def data_cleaning():
+    # Placeholder
+    pass
+
+@mlda_bp.route('/advanced_analysis')
+@login_required
+@admin_required
+def advanced_analysis():
+    # Placeholder
+    pass
+
+@mlda_bp.route('/report_generation')
+@login_required
+@admin_required
+def report_generation():
+    # Placeholder
+    pass
+
+
+
+
+==== ./app/config.py ====
+import os
+
+class Config:
+    """Base configuration class. Contains default settings."""
+    DEBUG = False
+    TESTING = False
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard_to_guess_string'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+                              'sqlite:///:memory:'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # other default configurations can be added here
+
+class DevelopmentConfig(Config):
+    """Configuration settings for development environment."""
+    DEBUG = True
+    # Override any other settings specific to development here
+
+class TestingConfig(Config):
+    """Configuration settings for testing environment."""
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # Use in-memory SQLite database for testing
+    # Override any other settings specific to testing here
+
+class ProductionConfig(Config):
+    """Configuration settings for production environment."""
+    # Override any settings specific to production here
+
+# Dictionary to map environment names to configuration classes
+config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
+}
+
+
+
+
+==== ./app/__init__.py ====
+#app init file 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from .config import Config
+import logging
+import os
+from sqlalchemy import text
+from flask_login import LoginManager
+from logging.handlers import RotatingFileHandler
+from dotenv import load_dotenv # bring in the load_dotenv function so that we
+
+#from .question_routes import question_routes  # Import the function from your routes file
+
+
+
+
+# load our environmental variables.
+db = SQLAlchemy()
+
+# Initialize extensions
+migrate = Migrate()
+login_manager = LoginManager()
+
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    load_dotenv('.env')
+
+    app.config.from_object(config_class)
+    login_manager.init_app(app)
+
+    # Flask admin stuff
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    # add the one view that we have so far. 
+
+    # Initialize extensions with app
+
+
+    #note that these are okay as its okay to talk about the namespace of a
+    # package from within its init file
+
+
+    from app.blueprints.admin import admin_bp
+    app.register_blueprint(admin_bp, url_prefix='/admin')
+
+    from app.blueprints.ml_and_da import mlda_bp
+    app.register_blueprint(mlda_bp,url_prefix='/mlda')
+
+    from app.blueprints.student import student as student_bp
+    app.register_blueprint(student_bp, url_prefix='/student')
+
+    from app.blueprints.staff import staff as staff_bp
+    app.register_blueprint(staff_bp, url_prefix='/staff')
+
+    from app.blueprints.crud import crud as crud_bp
+    app.register_blueprint(crud_bp, url_prefix='/crud')
+
+
+
+    #Adding routes that aren't attached to blueprints.
+
+    @app.route('/')
+    def index():
+        return "Welcome to the main page of our application!"
+
+#    add_question_routes(app)
+
+
+
+
+    if not app.debug:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/schoolapp.log', maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('School app startup')
+
+    return app
+
+
+
+
+
+
+
+==== ./app/models/user.py ====
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+from app import db
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(15), nullable=True)
+    password_hash = db.Column(db.String(128))
+    role = db.Column(db.String(50), nullable=False)  # 'admin', 'staff', or 'student'
+    
+    # Relationships
+    sessions = db.relationship('Session', backref='user', lazy=True)
+    materials = db.Column(db.String, nullable=True)  # Only relevant for students but can be null for others
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+
+
+==== ./app/models/subject.py ====
+from app import db
+
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True, nullable=False)
+
+
+
+
+==== ./app/models/quiz_models.py ====
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+
+Base = declarative_base()
+
+class Question(Base):
+    __tablename__ = 'questions'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String, nullable=False)
+    topic = Column(String, nullable=True)
+    quiz_id = Column(Integer, ForeignKey('quizzes.id'), nullable=True)  # Made nullable
+
+    # Relationship with Quiz (if applicable)
+    quiz = relationship('Quiz', back_populates='questions', uselist=False)
+
+    # Relationship with Answer
+    answers = relationship('Answer', back_populates='question')
+
+
+class Answer(Base):
+    __tablename__ = 'answers'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String, nullable=False)
+    topic = Column(String, nullable=True)  # Added topic field
+    is_correct = Column(Boolean, nullable=False, default=False)
+    question_id = Column(Integer, ForeignKey('questions.id'), nullable=False)
+
+    # Relationship with Question
+    question = relationship('Question', back_populates='answers')
+
+# Assuming you also have a Quiz model
+class Quiz(Base):
+    __tablename__ = 'quizzes'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String, nullable=False)
+
+    # Relationship with Question
+    questions = relationship('Question', back_populates='quiz')
+
+
+
+==== ./app/models/session.py ====
+from app import db
+
+class Session(db.Model):
+    __tablename__ = 'sessions'
+    id = db.Column(db.Integer, primary_key=True)
+    start_datetime = db.Column(db.DateTime, nullable=False)
+    end_datetime = db.Column(db.DateTime, nullable=False)
+    session_data = db.Column(db.String, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+
+
+==== ./app/models/__init__.py ====
+from .user import User
+from .subject import Subject
+from .tutoring import Tutoring
+from .quiz_models import Answer, Quiz, Question
+
+
+
+==== ./app/models/quizFakeData.py ====
+from models import Question, Answer, Quiz, Session  # Adjust the import based on your actual file and class names
+
+# Initialize a session
+session = Session()
+
+
+# Sample questions and answers for Calculus 3
+calculus_questions = [
+    "What is the integral of x^2?",
+    "What is the derivative of sin(x)?",
+    "What is the limit of (1/x) as x approaches infinity?"
+]
+
+calculus_answers = [
+    ["x^3/3 + C", "x^3 + C"],
+    ["cos(x)", "sin(x)"],
+    ["0", "1"]
+]
+
+# Sample questions and answers for Probability
+probability_questions = [G
+    "What is P(A and B) if A and B are independent?",
+    "What is the expected value of a fair six-sided die?",
+    "What is the variance of a uniform distribution from a to b?"
+]
+
+probability_answers = [
+    ["P(A) * P(B)", "P(A) + P(B)"],
+    ["3.5", "6"],
+    ["(b-a)^2 / 12", "(b-a)^2"]
+]
+
+def add_questions_and_answers():
+    # Create quizzes
+    quiz1 = Quiz(title="Calculus 3 Quiz")
+    quiz2 = Quiz(title="Probability Quiz")
+
+    # Add questions and answers for Calculus 3
+    for i, question_text in enumerate(calculus_questions):
+        question = Question(text=question_text, topic="Calculus 3", quiz=quiz1)
+        for j, answer_text in enumerate(calculus_answers[i]):
+            is_correct = (j == 0)  # Assuming the first answer is always correct
+            answer = Answer(text=answer_text, is_correct=is_correct, topic="Calculus 3", question=question)
+            session.add(answer)
+        session.add(question)
+
+    # Add questions and answers for Probability
+    for i, question_text in enumerate(probability_questions):
+        question = Question(text=question_text, topic="Probability", quiz=quiz2)
+        for j, answer_text in enumerate(probability_answers[i]):
+            is_correct = (j == 0)  # Assuming the first answer is always correct
+            answer = Answer(text=answer_text, is_correct=is_correct, topic="Probability", question=question)
+            session.add(answer)
+        session.add(question)
+
+    # Add quizzes to session and commit
+    session.add_all([quiz1, quiz2])
+    session.commit()
+
+# Add the questions and answers to the database
+add_questions_and_answers()
+
+
+==== ./app/models/tutoring.py ====
+from app import db
+class Tutoring(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    tutor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+
+
+
+==== ./app/templates/base.html ====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your App Title</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+{% block content %}{% endblock %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+    <!-- Footer -->
+
+    <footer>
+        <p>&copy; 2023 Chavez School. All rights reserved.</p>
+    </footer>
+</html>
+
+
+==== ./app/templates/add_admin.html ====
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Admin</title>
+</head>
+<body>
+    <h2>Add Admin</h2>
+    <form action="{{ url_for('add_admin') }}" method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="username">Username:</label>
+            {{ form.username() }}
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            {{ form.email() }}
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            {{ form.password() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+</body>
+</html>
+

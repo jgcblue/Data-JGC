@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+
+<!-- Notes 10-01-2023-->
+<!--
+	This is me putting together the dashboards from that mini app
+	and of course the full application. I am making the newer in construction version of this
+	file have views from the student and admin (later staff as well). 
+
+	Main point with the project at this point is to get: 
+	the whiteboard's loading saved data from the database and to
+	realize those divs for lettting students choose sesions to look at. 
+
+	Looking back at some more notes from Noteful on the ipad I am also seeing code mention of
+	that python script that I was writing the other day just for making database interactions
+	more managegable. 
+
+	The file name and location:
+	copyandPasteScripts. 
+
+	It contains code for importing the database, models, etc. 
+	It also has functions for creation instances of the models and finally a function that will
+	commit the instances to the database as entries. 
+
+
+
+
+	-->
+
+
+<!-- Notes 10-01-2023-->
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-9" style="background-color: #e6f7ff;">
+            <h2>Welcome to the Admin Dashboard</h2>
+            <p>Click on a link to be taken to the page and form (if applicable) that will allow you to perform the indicated action.</p>
+            {% if current_user.is_authenticated %}
+                <!-- Display content for authenticated users -->
+            {% else %}
+                <!-- Display content for non-authenticated users -->
+            {% endif %}
+            
+            <!-- Student Database Interactions -->
+            <h2>Student Database Interactions</h2>
+            <div class="navbar" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Administrator Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.view_student') }}">View A Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.view_all_students') }}">View All Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.add_student') }}">Add Student </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.update_student') }}">Manage Students</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Staff Database Interactions -->
+            <h2>Staff Database Interactions</h2>
+            <div class="navbar" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.add_staff') }}"> Add a Staff Member</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.view_staff') }}">View a Specific Staff Member</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.view_all_staff') }}">View All Staff</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="col-md-3" style="background-color: #e6ffe6;">
+            <div class="row mb-3">
+                First Row
+                <div class="col-12">
+                    <a href="LINK_TO_YOUR_NODEJS_WHITEBOARD_ENDPOINT" class="btn btn-primary btn-block">Whiteboard</a>
+                </div>
+            </div>
+            <div class="row">
+                Second Row
+                <div class="col-12">
+                    <a href="LINK_TO_YOUR_NODEJS_QUIZ_ENDPOINT" class="btn btn-secondary btn-block">Quizzes</a>
+                </div>
+            </div>
+              <div class="row">
+                  Row 3: Only will show something if its in local storage.
+                <div class="col-12" id="localStorageContents" style="overflow-y: auto; max-height: 200px;">
+                    
+                </div>
+            </div>
+              <div class="row">
+                  Row 4: JWT
+                <div class="col-12" id="localStorageContents" style="overflow-y: auto; max-height: 200px;">
+                    
+                <div id="jwtContents"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function displayLocalStorageContents() {
+        const container = document.getElementById('localStorageContents');
+        container.innerHTML = ''; // Clear the container
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            container.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+        }
+    }
+    
+    // Call the function to display the contents
+    displayLocalStorageContents();
+    
+    // Update the display whenever something is added to local storage
+    window.addEventListener('storage', function(event) {
+        displayLocalStorageContents();
+    });
+</script>
+<!-- Include the jsonwebtoken library -->
+<script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/lib/index.js"></script>
+
+<script>
+    const secretKey = '{{ secret_key }}';  // Use the secret key from your app's config
+    const token = '{{ token }}';  // Get the token passed to the template
+    localStorage.setItem('jwt_token', token);
+
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        const container = document.getElementById('jwtContents');
+        container.innerHTML = `<p><strong>Username:</strong> ${decoded.username}</p>`;
+        container.innerHTML += `<p><strong>Data:</strong> ${decoded.data}</p>`;
+    } catch (e) {
+        console.error('Failed to decode token:', e);
+    }
+</script>
+<!-- Dashboard from Mini App-->
+
+<div class="container d-flex flex-column" style="height:100vh;"> <!-- Set container to be a flex container with column direction and take full viewport height -->
+    <div class="row flex-grow-1"> <!-- Allow this row to grow and take up any remaining space in the container -->
+        <!-- Left Column -->
+        <div class="col-md-3 d-flex flex-column" style="background-color: #e6f7ff;"> <!-- Set column to be a flex container with column direction -->
+            <p>Welcome to the "testing version" of the Flask Endpoint. In fact, I am sadly only hollowed out, really.</p>
+            <div class="container d-flex flex-column flex-grow-1"> <!-- Set inner container to be a flex container with column direction and allow it to grow -->
+                <div class="row">
+                    <div class="col-12">
+                        <a href="LINK_TO_YOUR_NODEJS_QUIZ_ENDPOINT" class="btn btn-secondary btn-block">Quizzes</a>
+                    </div>
+                </div>
+                <div class="row flex-grow-1 overflow-auto"> <!-- Allow this row to grow and set overflow to auto -->
+                    <div class="col-12" id="localStorageContents">
+                        <!-- Contents Here -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" id="jwtContents">
+                        <!-- JWT Contents Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="col-md-9 d-flex flex-column" style="background-color: #e6ffe6;"> <!-- Set column to be a flex container with column direction -->
+            <div class="container d-flex flex-column flex-grow-1"> <!-- Set inner container to be a flex container with column direction and allow it to grow -->
+                <div class="row">
+                    <div class="col-12">
+                        <button onclick="openWhiteboard()" class="btn btn-primary btn-block">Whiteboard</button>
+                    </div>
+                </div>
+                <div class="row flex-grow-1"> <!-- Allow this row to grow -->
+                    <div class="col-12" id="iframeContainer" style="overflow: hidden;">
+                        <!-- Iframe Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function displayLocalStorageContents() {
+        const container = document.getElementById('localStorageContents');
+        container.innerHTML = ''; // Clear the container
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            container.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+        }
+    }
+    
+    // Call the function to display the contents
+    displayLocalStorageContents();
+    
+    // Update the display whenever something is added to local storage
+    window.addEventListener('storage', function(event) {
+        displayLocalStorageContents();
+    });
+</script>
+<!-- Include the jsonwebtoken library -->
+<script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/lib/index.js"></script>
+
+<script>
+    const secretKey = '{{ secret_key }}';  // Use the secret key from your app's config
+    const token = '{{ token }}';  // Get the token passed to the template
+    
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        const container = document.getElementById('jwtContents');
+        container.innerHTML = `<p><strong>Username:</strong> ${decoded.username}</p>`;
+        container.innerHTML += `<p><strong>Data:</strong> ${decoded.data}</p>`;
+    } catch (e) {
+        console.error('Failed to decode token:', e);
+    }
+</script>
+<script>
+    function openWhiteboard() {
+        const container = document.getElementById('iframeContainer');
+        container.style.height = '400px'; // Adjust the height as needed
+        const iframe = document.createElement('iframe');
+        iframe.src = 'http://localhost:3000/whiteboard'; // Adjust the URL as needed
+
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        container.appendChild(iframe);
+    }
+</script>
+
+
+{% endblock %}
+

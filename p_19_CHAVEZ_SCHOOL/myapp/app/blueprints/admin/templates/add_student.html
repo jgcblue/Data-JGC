@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Add a student</h2>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            <label for="{{ form.username.id }}">Username</label>
+            {{ form.username(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id }}">Email</label>
+            {{ form.email(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password_hash.id }}">Password</label>
+            {{ form.password_hash(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+

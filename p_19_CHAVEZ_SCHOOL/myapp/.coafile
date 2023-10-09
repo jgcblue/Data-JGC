@@ -1,0 +1,5 @@
+[Default]
+bears = SpaceConsistencyBear, PyUnusedCodeBear, PEP8Bear
+files = **/*.py
+use_spaces = True
+
